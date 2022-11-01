@@ -1,23 +1,25 @@
 import React, { useEffect, useRef } from 'react'
+import {createWorkerFactory, useWorker} from '@shopify/react-web-worker';
+
+const createWorker = createWorkerFactory(() => import('./worker.js'));
 
 const Container = () => {
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   let stream = null;
   
-  const webWorker = new Worker("/worker.js");
-  webWorker.onmessage = (e) => {
-    console.log(e.data);
-  } 
-ddd
-  const onClick = () => {
-    webWorker.postMessage(['hello', "Hi :)"]);
+  const webWorker = useWorker(createWorker);
+
+  const onClick = async () => {
+   const result = await webWorker.hello("silqwer");
+   console.log(result);
 
     canvasRef.current.getContext("2d").drawImage(videoRef.current, 0, 0, 640, 480);
     
     const imageData = canvasRef.current.getContext("2d").getImageData(0, 0, 640, 480);
     
-    webWorker.postMessage(['hands',imageData]);
+    const result2 = await webWorker.handsSend(imageData);
+    console.log(result2)
   }
 
   const getMedia = async (option) => {
