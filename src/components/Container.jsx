@@ -1,23 +1,27 @@
 import React, { useEffect, useRef } from 'react'
+import Worker from 'web-worker';
 
 const Container = () => {
   const canvasRef = useRef(null);
   const videoRef = useRef(null);
   let stream = null;
   
-  const webWorker = new Worker("/worker.js");
-  webWorker.onmessage = (e) => {
-    console.log(e.data);
-  } 
+  const webWorker = new Worker(
+    new URL('./worker.mjs', import.meta.url),
+    { type: 'module' }
+  );
+
+
+  webWorker.addEventListener('message', e => {
+    console.log(e.data) 
+  });
+
 
   const onClick = () => {
-    webWorker.postMessage(['hello', "Hi :)"]);
-
-    canvasRef.current.getContext("2d").drawImage(videoRef.current, 0, 0, 640, 480);
-    
+  
+    canvasRef.current.getContext("2d").drawImage(videoRef.current, 0, 0, 640, 480);  
     const imageData = canvasRef.current.getContext("2d").getImageData(0, 0, 640, 480);
-    
-    webWorker.postMessage(['hands',imageData]);
+    webWorker.postMessage(imageData);
   }
 
   const getMedia = async (option) => {
