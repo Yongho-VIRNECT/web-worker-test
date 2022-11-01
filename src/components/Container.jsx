@@ -9,7 +9,7 @@ const Container = () => {
   webWorker.onmessage = (e) => {
     console.log(e.data);
   } 
-ddd
+
   const onClick = () => {
     webWorker.postMessage(['hello', "Hi :)"]);
 
