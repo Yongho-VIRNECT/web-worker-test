@@ -1,18 +1,14 @@
-/* eslint-disable no-undef */
 
-//importScripts("/worker/hands.js?time="+time);
-//import { Hands } from '/worker/hands.js';
-let time = new Date().getTime();
-
+import {  Hands } from "@mediapipe/hands";
 
 let hands = null;
 let handsModelInit = false;
-
+let result = null;
 const initHands = () => {
   hands = new Hands({
     locateFile: (file) => {
       console.log("FILE:",file);
-      return `/worker/${file}`
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
     },
   });
 
@@ -22,37 +18,25 @@ const initHands = () => {
     minDetectionConfidence: 0.5,
     minTrackingConfidence: 0.5,
   });
-  
-  hands.onResults((result)=>{
-    postMessage(result);
+
+  hands.onResults((results)=>{
+    console.log(results);
+    result = results
   });
+  
 
   console.log("holistic worker initialization!");
   handsModelInit = true
 }
 
-//initHands();
-
-// onmessage = async (e) => {
-//   console.log(e.data);
-//   const [eventName, data] = e.data;
-//   if(eventName === "hello"){
-//     postMessage("How are you? :D");
-//     return 
-//   } 
-
-//   if(eventName === "hands"){
-//     console.log(data);
-//     await hands.send({image: data});
-//   }
-// }
+initHands();
 
 export const hello = (name) => {
   return `How are you? ${name} :D`;
 }
 
-export const handsSend = (imageData) => {
-  console.log(imageData)
-  return `imageData :D`;
+export const handsSend = async (imageData) => {
+  await hands.send({ image: imageData });
+  return result;
 }
 
