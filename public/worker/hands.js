@@ -4,7 +4,7 @@
    Copyright The Closure Library Authors.
    SPDX-License-Identifier: Apache-2.0
   */
-  'use strict';
+  
   var x;
 
   function aa(a) {
@@ -115,7 +115,7 @@
   var fa = "function" == typeof Object.create ? Object.create : function(a) {
           function b() {}
           b.prototype = a;
-          return new b
+          return new b()
       },
       ha;
   if ("function" == typeof Object.setPrototypeOf) ha = Object.setPrototypeOf;
@@ -194,7 +194,7 @@
   }
 
   function pa(a) {
-      this.g = new ma;
+      this.g = new ma();
       this.h = a
   }
 
@@ -366,13 +366,13 @@
           if (f === this) this.l(new TypeError("A Promise cannot resolve to itself"));
           else if (f instanceof b) this.H(f);
           else {
-              a: switch (typeof f) {
+              switch (typeof f) {
                   case "object":
                       var h = null != f;
-                      break a;
+                      break;
                   case "function":
                       h = !0;
-                      break a;
+                      break;
                   default:
                       h = !1
               }
@@ -433,7 +433,7 @@
               this.g = null
           }
       };
-      var g = new c;
+      var g = new c();
       b.prototype.H =
           function(f) {
               var h = this.j();
@@ -860,7 +860,7 @@
   function Xa() {
       this.i = [];
       this.h = 0;
-      this.g = new Sa
+      this.g = new Sa()
   }
 
   function S(a, b) {
@@ -970,7 +970,7 @@
       var g = void 0 === g ? !1 : g;
       eb(a);
       g = ib(a, c, b, g);
-      c = d ? d : new c;
+      c = d ? d : new c();
       a = hb(a, b);
       void 0 != e ? (g.splice(e, 0, c), a.splice(e, 0, c.m)) : (g.push(c), a.push(c.m));
       return c
@@ -1292,7 +1292,7 @@
           a = d
       } else a = new Ta(a);
       try {
-          return Db(new b, a, Cb(c))
+          return Db(new b(), a, Cb(c))
       } finally {
           b = a.g, b.h = null, b.j = 0, b.i = 0, b.g = 0, b.v = !1, a.i = -1, a.h = -1, 100 > Wa.length && Wa.push(a)
       }
@@ -1304,7 +1304,7 @@
   }
 
   function Vb(a, b) {
-      var c = new Xa;
+      var c = new Xa();
       Jb(a, c, Ib(b));
       S(c, c.g.end());
       a = new Uint8Array(c.h);
@@ -1430,7 +1430,7 @@
               d = void 0 === d ? !1 : d;
               if (Ba) {
                   if (d && /(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])/.test(b)) throw Error("Found an unpaired surrogate");
-                  b = (Aa || (Aa = new TextEncoder)).encode(b)
+                  b = (Aa || (Aa = new TextEncoder())).encode(b)
               } else {
                   for (var e = 0, g = new Uint8Array(3 * b.length), f = 0; f < b.length; f++) {
                       var h = b.charCodeAt(f);
@@ -1798,6 +1798,7 @@
                   }).map(function(n) {
                       return a.locateFile(n.url, a.aa)
                   });
+                  console.log(ea(d));
                   importScripts.apply(null, ea(d));
                   e = a;
                   return F(p, createMediapipeSolutionsWasm(Module), 6);
@@ -1821,7 +1822,7 @@
                   a.h.canvas = a.l;
                   a.h.createContext(a.l, !0, !0, {});
               case 4:
-                  a.i = new a.h.SolutionWasm, a.$ = !1, p.g = 0
+                  a.i = new a.h.SolutionWasm(), a.$ = !1, p.g = 0
           }
       })
   }
@@ -1917,7 +1918,7 @@
                   a.A = void 0;
               case 2:
                   if (a.B) {
-                      e = new a.h.GraphOptionChangeRequestList;
+                      e = new a.h.GraphOptionChangeRequestList();
                       g = C(a.B);
                       for (f = g.next(); !f.done; f = g.next()) h = f.value, e.push_back(h);
                       a.i.changeOptions(e);
@@ -1967,7 +1968,7 @@
               case 2:
                   return F(p, c.initialize(), 3);
               case 3:
-                  e = new c.h.PacketDataList;
+                  e = new c.h.PacketDataList();
                   g = C(Object.keys(a));
                   for (f = g.next(); !f.done; f = g.next())
                       if (h = f.value, k = c.g.inputs[h]) {
@@ -2000,7 +2001,7 @@
                                   case "detections":
                                       q = c.o[k.stream];
                                       q || (q = new uc(c.h), c.o[k.stream] = q);
-                                      q.data || (q.data = new q.g.DetectionListData);
+                                      q.data || (q.data = new q.g.DetectionListData());
                                       q.data.reset(n.length);
                                       for (w = 0; w < n.length; ++w) {
                                           t = n[w];
@@ -2008,7 +2009,7 @@
                                               A = v.setBoundingBox,
                                               H = w;
                                           var E = t.ea;
-                                          var u = new lc;
+                                          var u = new lc();
                                           W(u, 1, E.ka);
                                           W(u, 2, E.la);
                                           W(u, 3, E.height);
@@ -2027,7 +2028,7 @@
                                                   u = Object.assign(Object.assign({}, u), {
                                                       visibility: z ? u.visibility : 0
                                                   });
-                                                  z = new gc;
+                                                  z = new gc();
                                                   W(z, 1, u.x);
                                                   W(z, 2, u.y);
                                                   W(z, 3, u.z);
@@ -2037,7 +2038,7 @@
                                                   H.call(A, E, u)
                                               }
                                           if (t.V)
-                                              for (v = 0; v < t.V.length; ++v) A = q.data, H = A.addClassification, E = w, u = t.V[v], z = new bc, W(z, 2, u.score), u.index && W(z, 1, u.index), u.label && W(z, 3, u.label), u.displayName && W(z, 4, u.displayName), u = Vb(z, cc), H.call(A, E, u)
+                                              for (v = 0; v < t.V.length; ++v) A = q.data, H = A.addClassification, E = w, u = t.V[v], z = new bc(), W(z, 2, u.score), u.index && W(z, 1, u.index), u.label && W(z, 3, u.label), u.displayName && W(z, 4, u.displayName), u = Vb(z, cc), H.call(A, E, u)
                                       }
                                       q = q.data;
                                       break a;
@@ -2174,7 +2175,7 @@
   }
 
   function Ec(a, b) {
-      for (var c = b.name || "$", d = [].concat(ea(b.wants)), e = new a.h.StringList, g = C(b.wants), f = g.next(); !f.done; f = g.next()) e.push_back(f.value);
+      for (var c = b.name || "$", d = [].concat(ea(b.wants)), e = new a.h.StringList(), g = C(b.wants), f = g.next(); !f.done; f = g.next()) e.push_back(f.value);
       g = a.h.PacketListener.implement({
           onResults: function(h) {
               for (var k = {}, l = 0; l < b.wants.length; ++l) k[d[l]] = h.get(l);

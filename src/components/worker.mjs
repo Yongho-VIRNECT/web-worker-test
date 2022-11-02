@@ -8,7 +8,8 @@ const initHands = () => {
   hands = new Hands({
     locateFile: (file) => {
       console.log("FILE:",file);
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+      // return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+      return `/worker/${file}`;
     },
   });
 
@@ -20,6 +21,7 @@ const initHands = () => {
   });
   
   hands.onResults((onResults)=>{
+    console.log("onResults:", onResults);
     result = onResults
   });
 
@@ -29,6 +31,7 @@ const initHands = () => {
 initHands();
 
 addEventListener('message', async e => {
-  await hands.send({ image: e.data });
+  const imageData = new ImageData(e.data, 640, 480);
+  await hands.send({ image: imageData });
   postMessage(result);
 });

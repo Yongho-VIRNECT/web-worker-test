@@ -20,7 +20,7 @@ const Container = () => {
   const onClick = () => {
   
     canvasRef.current.getContext("2d").drawImage(videoRef.current, 0, 0, 640, 480);  
-    const imageData = canvasRef.current.getContext("2d").getImageData(0, 0, 640, 480);
+    const imageData = canvasRef.current.getContext("2d").getImageData(0, 0, 640, 480).data;
     webWorker.postMessage(imageData);
   }
 
