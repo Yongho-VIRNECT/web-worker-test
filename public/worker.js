@@ -36,12 +36,17 @@ onmessage = async (e) => {
   console.log(e.data);
   const [eventName, data] = e.data;
   if(eventName === "hello"){
+    
+    console.log("imageData:", imageData)
     postMessage("How are you? :D");
     return 
   } 
 
   if(eventName === "hands"){
-    console.log(data);
-    await hands.send({image: data});
+    const imageData = new ImageData(data, 640, 480);
+    console.log("imageData:", imageData);
+
+
+    await hands.send({image: imageData});
   }
 }
